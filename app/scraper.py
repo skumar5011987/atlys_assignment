@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import os
+from tenacity import retry, stop_after_attempt, wait_fixed
 from .models import Product
 from .schemas import ProductSchema
 from .config import settings
@@ -21,6 +22,8 @@ class Scraper:
         } if proxy else None
         self.products = []
 
+
+    @retry(stop=stop_after_attempt(5), wait=wait_fixed(3))
     def fetch_page(self, page_num):
         url = f"{self.base_url}?page={page_num}"
         try:
