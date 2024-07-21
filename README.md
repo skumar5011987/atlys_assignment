@@ -36,6 +36,8 @@ This project is a web scraping tool built using Python and the FastAPI framework
 3. Install the required dependencies:
     pip install -r requirements.txt
 
+    *Note: Make sure your system has redis server up and rumnning.
+    You can follow this l: https://redis.io/docs/latest/operate/oss_and_stack/install/install-redis/install-redis-on-windows/
 
 # Running the Application
 1. Initialize the database:
