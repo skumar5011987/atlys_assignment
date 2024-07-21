@@ -29,7 +29,7 @@ This project is a web scraping tool built using Python and the FastAPI framework
     'conda create -n venv python==3.9' # make sure conda is installed to your system
     conda activate venv
     or
-    
+
     python -m venv venv
     source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 
@@ -39,25 +39,37 @@ This project is a web scraping tool built using Python and the FastAPI framework
 
 # Running the Application
 1. Initialize the database:
+
     python -c 'from app.database import init_db; init_db()'
 
 2. Start the FastAPI server:
+
     uvicorn app.main:app --reload
 
-3. Access the application at 'http://localhost:8000'
+3. Access the application at:
+
+    'http://localhost:8000'
 
 # API Endpoints
-1. Welcome Endpoint
+1. Welcome Endpoint:
+
     GET /
     Description: Welcome message with available APIs and authentication details.
+
     Example Response:
+
     {"message": "Welcome to Atlys, Lets starts!!"}
 
-2. Get All Products
+2. Get All Products:
+
     GET /products
+
     Description: Retrieve all scraped products.
+
     Authentication: Requires Authorization header with the API key.
-    Example Response:[
+
+    Example Response:
+    [
         {
             "title": "Product 1",
             "price": 10.99,
@@ -72,23 +84,34 @@ This project is a web scraping tool built using Python and the FastAPI framework
         }
     ]
 
-3. Start Scraping
+3. Start Scraping:
+
     POST /scrape
+
     Description: Start the scraping process in the background.
+
     Authentication: Requires Authorization header with the API key.
+
     Parameters:
+
         page_limit (query parameter): Number of pages to scrape.
         proxy (query parameter, optional): Proxy string to use for scraping.
     
-    Example Response:{
+    Example Response:
+    {
         "message": "Scraping started in background !!!"
     }
 
-4. Clear Cache
+4. Clear Cache:
+
     POST /clear_cache
+
     Description: Clear the cached scraping results.
+
     Authentication: Requires Authorization header with the API key.
-    Example Response:{
+
+    Example Response:
+    {
         "message": "ok"
     }
 
@@ -98,5 +121,5 @@ The API endpoints require a static token for authentication. Include the followi
 Header Name: Authorization
 Header Value: 'U2FpbGVzaEt1bWFy'
 
-# Author Sailesh Kumar
-# Software Engineer at Subtlabs Software Solutions Pvt ltd
+# Author: Sailesh Kumar
+Software Engineer at Subtlelabs Software Solutions Pvt ltd
