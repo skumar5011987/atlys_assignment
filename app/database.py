@@ -21,6 +21,7 @@ class ProductModel(Base):
     title = Column(String, index=True)
     price = Column(String,)
     image_url = Column(String, unique=True)
+    path_to_image = Column(String, nullable=True)
 
 # Create tables
 def init_db():

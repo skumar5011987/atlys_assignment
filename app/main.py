@@ -3,7 +3,6 @@ from sqlalchemy.orm import Session
 from .auth import verify_token
 from .scraper import Scraper
 from .models import Product
-from .schemas import ProductSchema
 from .database import init_db, get_db
 from .cache import *
 

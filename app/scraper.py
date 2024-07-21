@@ -25,7 +25,7 @@ class Scraper:
 
     @retry(stop=stop_after_attempt(5), wait=wait_fixed(3))
     def fetch_page(self, page_num):
-        url = f"{self.base_url}?page={page_num}"
+        url = f"{self.base_url}page/{page_num}/"
         try:
             response = requests.get(url, headers=self.headers, proxies=self.proxies, cookies=self.cookies)
             response.raise_for_status()
@@ -53,16 +53,23 @@ class Scraper:
         soup = BeautifulSoup(html, 'html.parser')
         product_cards = soup.select('.product')
         for card in product_cards:
-            product_url = card.find('div', class_='mf-product-thumbnail').find('a').get('href')
-            title, price, image_url = self.get_product_details(product_url)
-            image_path = self.download_image(image_url)
-            self.products.append(ProductSchema(title=title, price=price, image_url=image_url))
+            
+            product_title = card.find('div', class_='mf-product-content').find('h2').get_text()
+            price_str = card.find('span', class_='woocommerce-Price-amount amount').get_text()
+            image_url = card.find('div', class_='mf-product-thumbnail').find('img', class_='attachment-woocommerce_thumbnail size-woocommerce_thumbnail')['data-lazy-src'].strip()
+            
+            # product_url = card.find('div', class_='mf-product-thumbnail').find('a').get('href')
+            # product_title, price_str, image_url = self.get_product_details(product_url) # this can be used to get product's comlete details by opening product card
+            
+            path_to_image = self.download_image(image_url)
+            self.products.append(ProductSchema(title=product_title, price=price_str, image_url=image_url, path_to_image=path_to_image))
             
 
+    # Method to open product cards and scrape product's complete info
     def get_product_details(self, url=''):
         if not url:
-            return 'N/A'
-        
+            return ""
+                
         html = self.fetch_product(url)
         soup = BeautifulSoup(html, 'html.parser')
         title = soup.find('div', class_='entry-left').find('h1').text.strip()
