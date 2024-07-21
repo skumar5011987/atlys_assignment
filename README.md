@@ -25,9 +25,11 @@ This project is a web scraping tool built using Python and the FastAPI framework
     cd <repository-directory>
 
 2. Create and activate a virtual environment:
-    conda create -n venv python==3.9 # make sure conda is installed to your sistem
+
+    'conda create -n venv python==3.9' # make sure conda is installed to your system
     conda activate venv
     or
+    
     python -m venv venv
     source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 
